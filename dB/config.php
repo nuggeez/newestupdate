@@ -3,11 +3,11 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$database = "mananggit";
+$database = "gabriento";
 
 $conn = new mysqli($servername, $username, $password, $database);
 
-if ($conn -> connect_error){
-    
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
 ?>
