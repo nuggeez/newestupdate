@@ -3,17 +3,35 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
+    <li class="nav-heading">Main</li>
+
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="index.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li>
+
+      <li class="nav-heading">Pages</li>
       
       <li class="nav-item">
         <a class="nav-link collapsed" href="users.php">
           <i class="bi bi-person"></i>
-          <span>Users</span>
+          <span>Guest Managements</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link " href="roomManage.php">
+          <i class="bi-door-closed"></i>
+          <span>Room Management</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link " href="reservation.php">
+          <i class="bi-calendar-check"></i>
+          <span>Reservation Management</span>
         </a>
       </li><!-- End Dashboard Nav -->
 

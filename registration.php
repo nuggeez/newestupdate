@@ -52,7 +52,7 @@
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
 
-                  <form method ="POST" action="./controller/createAccount.php" method="POST" class="row g-3 needs-validation" novalidate>
+                  <form method = "POST" action="./controller/createAccount.php" class="row g-3 needs-validation" novalidate>
                     <div class="col-12">
                       <label for="firstname" class="form-label">First Name</label>
                       <input type="text" name="firstname" class="form-control" id="firstname" required>
@@ -151,7 +151,7 @@
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <script>
+  <!-- <script>
 
     const Toast = Swal.mixin({
     toast: true,
@@ -168,7 +168,7 @@
     icon: "success",
     title: "Signed in successfully"
   });
-  </script>
+  </script> -->
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>

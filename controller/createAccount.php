@@ -13,7 +13,7 @@ $gender = $_POST['gender'];
 $birthday = $_POST['birthday'];
 
 //check if password and confirm password match
-if($password != $cPassword) {
+if($password != $cpassword) {
     $_SESSION['status'] = "Password do not match!";
     $_SESSION['status_code'] = "error";
     header('Location: ../registration.php');
@@ -21,7 +21,7 @@ if($password != $cPassword) {
 }
 
 //check if email address is already exists
-$checkQuery = "SELECT * FROM `users` WHERE `email`= $email";
+$checkQuery = "SELECT * FROM `users` WHERE `email`= '$email'";
 $result = mysqli_query($conn, $checkQuery);
 
 if(mysqli_num_rows($result) > 0) {
@@ -30,11 +30,12 @@ if(mysqli_num_rows($result) > 0) {
 }
 
 //insert into database
-$query="INSERT INTO `users`(`firstName`, `lastName`, `email`, `password`, `phoneNumber`, `gender`, `birthday`) VALUES ('[$firstname]','[$lastname]','[$email]','[$password]','[$phoneNumber]','[$gender]','[$birthday]')";
+$query="INSERT INTO `users`(`firstName`, `lastName`, `email`, `password`, `phoneNumber`, `gender`, `birthday`)
+VALUES ('$firstName','$lastName','$email','$password','$phoneNumber','$gender','$birthday')";
 
 if(mysqli_query($conn, $query)){
-    $_SESSION['status'] = "Registration success";
-    $_SESSION['status_code'] = "success";
+    $_SESSION['message'] = "Account successfully created!";
+    $_SESSION['code'] = "success";
     header('Location: ../login.php');
     exit(0);
 }
