@@ -5,28 +5,27 @@ include("./includes/topbar.php");
 include("./includes/sidebar.php");
 ?>
 
-
 <div class="pagetitle">
       <h1>Welcome back!</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
           <li class="breadcrumb-item">Pages</li>
-          <li class="breadcrumb-item active">Current Guest List</li>
+          <li class="breadcrumb-item active">Facilities Management</li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
+</div><!-- End Page Title -->
 
-    <section class="section">
+<section class="section">
       <div class="row">
         <div class="col-lg-12">
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Current Guest List</h5>
+              <h5 class="card-title">Facilities Management</h5>
 
               <div class="d-flex justify-content-end mb-3">
-                <a href="addUser.php">
+                <a href="addFacility.php">
                   <button type="button" class="btn btn-primary"><i class="bi bi-plus-circle"></i></button>
                 </a>
               </div>
@@ -35,60 +34,42 @@ include("./includes/sidebar.php");
               <table class="table datatable">
                 <thead>
                   <tr>
-                    <th>
-                      Guest Name
-                    </th>
-                    <th>Gender</th>
-                    <th>Check in</th>
-                    <th>Check out</th>
-                    <th>Phone Number</th>
-                    <th>Email Address</th>
-                    <th>Room no.</th>
-                    <th>Status</th>
+                    <th>Facility Name</th>
+                    <th>Description</th>
                     <th>Actions</th>
-                    </tr>
+                  </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $query = "SELECT guests.guest_id, guests.name AS guest_name, guests.gender, reservations.check_in, reservations.check_out, guests.phone_number, guests.email, rooms.room_number, reservations.reservation_status FROM reservations INNER JOIN guests ON reservations.guest_id = guests.guest_id INNER JOIN rooms ON reservations.room_id = rooms.room_id";
+                    // Query to fetch facilities data
+                    $query = "SELECT facility_id, facility_name, description FROM facilities";
                     
                     $query_run = mysqli_query($conn, $query);
 
                     if (!$query_run) {
-                        die("Query failed: " .mysql_error($conn));
+                        die("Query failed: " . mysqli_error($conn));
                     } 
-                    if (mysqli_num_rows($query_run) > 0) 
-                    {
-                        foreach($query_run as $row) {
+                    
+                    if (mysqli_num_rows($query_run) > 0) {
+                        foreach ($query_run as $row) {
                     ?> 
                     <tr>
-                        <td><?= $row['guest_name']; ?></td> 
-                        <td><?= $row['gender']; ?></td>
-                        <td><?= $row['check_in']; ?></td>
-                        <td><?= $row['check_out']; ?></td>
-                        <td><?= $row['phone_number']; ?></td>
-                        <td><?= $row['email']; ?></td>
-                        <td><?= $row['room_number']; ?></td>
-                        <td><?= $row['reservation_status']; ?></td>
+                        <td><?= $row['facility_name']; ?></td> 
+                        <td><?= $row['description'] ?? 'No description available'; ?></td>
                         <td>
-                          <div class="d-flex gap-2" style="margin-top: 5px;">
-                            <a href="editGuest.php?id=<?= $row['guest_id'] ?? ''; ?>" class="btn btn-warning">
+                          <div class="d-flex gap-2">
+                            <a href="editFacility.php?id=<?= $row['facility_id'] ?? ''; ?>" class="btn btn-warning">
                               <i class="bi bi-pencil-square"></i>
                             </a>
-                            <a href="deleteGuest.php?id=<?= $row['guest_id'] ?? ''; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this guest?');">
+                            <a href="deleteFacility.php?id=<?= $row['facility_id'] ?? ''; ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this facility?');">
                               <i class="bi bi-trash"></i>
                             </a>
                           </div>
                         </td>
-
-
-
                     </tr>
-
                     <?php
                             }
                         }
-                        
                     ?>
                 </tbody>
               </table> 
@@ -99,7 +80,7 @@ include("./includes/sidebar.php");
 
         </div>
       </div>
-    </section>
+</section>
 
 <?php
 include("./includes/footer.php");

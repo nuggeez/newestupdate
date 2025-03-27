@@ -17,7 +17,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="users.php">
           <i class="bi bi-person"></i>
-          <span>Guest Managements</span>
+          <span>Facilities Management</span>
         </a>
       </li>
       
@@ -31,7 +31,7 @@
       <li class="nav-item">
         <a class="nav-link " href="reservation.php">
           <i class="bi-calendar-check"></i>
-          <span>Reservation Management</span>
+          <span>Booking Management</span>
         </a>
       </li><!-- End Dashboard Nav -->
 

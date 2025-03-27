@@ -34,14 +34,15 @@ if (isset($_GET['id'])) {
 if (isset($_POST['update_room'])) {
     $room_number = $_POST['room_number'];
     $room_type = $_POST['room_type'];
-    $bed_capacity = $_POST['bed_capacity'];
+    $capacity = $_POST['capacity'];
     $status = $_POST['status'];
+    $price = $_POST['price'];
 
-    $query = "UPDATE rooms SET room_number=?, room_type=?, bed_capacity=?, status=? WHERE room_id=?";
+    $query = "UPDATE rooms SET room_number=?, room_type=?, capacity=?, status=?, price=? WHERE room_id=?";
     $stmt = mysqli_prepare($conn, $query);
 
     if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "ssisi", $room_number, $room_type, $bed_capacity, $status, $room_id);
+        mysqli_stmt_bind_param($stmt, "ssisdi", $room_number, $room_type, $capacity, $status, $price, $room_id);
         if (mysqli_stmt_execute($stmt)) {
             echo "<script>alert('Room updated successfully!'); window.location.href='roomManage.php';</script>";
         } else {
@@ -68,14 +69,19 @@ if (isset($_POST['update_room'])) {
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Room Type</label>
                     <div class="col-sm-10">
-                        <input type="text" name="room_type" class="form-control" value="<?= htmlspecialchars($room['room_type']); ?>" required>
+                        <select name="room_type" class="form-select" required>
+                            <option value="Single" <?= ($room['room_type'] == 'Single') ? 'selected' : ''; ?>>Single</option>
+                            <option value="Double" <?= ($room['room_type'] == 'Double') ? 'selected' : ''; ?>>Double</option>
+                            <option value="Suite" <?= ($room['room_type'] == 'Suite') ? 'selected' : ''; ?>>Suite</option>
+                            <option value="Family" <?= ($room['room_type'] == 'Family') ? 'selected' : ''; ?>>Family</option>
+                        </select>
                     </div>
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label">Bed Capacity</label>
+                    <label class="col-sm-2 col-form-label">Capacity</label>
                     <div class="col-sm-10">
-                        <input type="number" name="bed_capacity" class="form-control" value="<?= htmlspecialchars($room['bed_capacity']); ?>" required>
+                        <input type="number" name="capacity" class="form-control" value="<?= htmlspecialchars($room['capacity']); ?>" required>
                     </div>
                 </div>
 
@@ -85,9 +91,15 @@ if (isset($_POST['update_room'])) {
                         <select name="status" class="form-select" required>
                             <option value="Available" <?= ($room['status'] == 'Available') ? 'selected' : ''; ?>>Available</option>
                             <option value="Occupied" <?= ($room['status'] == 'Occupied') ? 'selected' : ''; ?>>Occupied</option>
-                            <option value="Reserved" <?= ($room['status'] == 'Reserved') ? 'selected' : ''; ?>>Reserved</option>
-                            <option value="Not ready" <?= ($room['status'] == 'Not ready') ? 'selected' : ''; ?>>Not ready</option>
+                            <option value="Maintenance" <?= ($room['status'] == 'Maintenance') ? 'selected' : ''; ?>>Maintenance</option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Price</label>
+                    <div class="col-sm-10">
+                        <input type="number" step="0.01" name="price" class="form-control" value="<?= htmlspecialchars($room['price']); ?>" required>
                     </div>
                 </div>
 

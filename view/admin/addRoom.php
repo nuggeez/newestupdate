@@ -9,12 +9,13 @@ if (isset($_POST['submit'])) {
     // Retrieve form data
     $room_number = $_POST['room_number'];
     $room_type = $_POST['room_type'];
-    $bed_capacity = $_POST['bed_capacity'];
+    $capacity = $_POST['capacity'];
     $status = $_POST['status'];
+    $price = $_POST['price'];
 
     // Prepare SQL query
-    $stmt = $conn->prepare("INSERT INTO rooms (room_number, room_type, bed_capacity, status) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssis", $room_number, $room_type, $bed_capacity, $status);
+    $stmt = $conn->prepare("INSERT INTO rooms (room_number, room_type, capacity, status, price) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("isiss", $room_number, $room_type, $capacity, $status, $price);
 
     // Execute query
     if ($stmt->execute()) {
@@ -41,7 +42,7 @@ $conn->close();
                 <div class="row mb-3">
                     <label for="room_number" class="col-sm-2 col-form-label">Room Number</label>
                     <div class="col-sm-10">
-                        <input type="text" name="room_number" class="form-control" required>
+                        <input type="number" name="room_number" class="form-control" required>
                     </div>
                 </div>
 
@@ -50,8 +51,8 @@ $conn->close();
                     <div class="col-sm-10">
                         <select name="room_type" class="form-select" required>
                             <option selected disabled>Select room type</option>
-                            <option value="Standard">Standard</option>
-                            <option value="Deluxe">Deluxe</option>
+                            <option value="Single">Single</option>
+                            <option value="Double">Double</option>
                             <option value="Suite">Suite</option>
                             <option value="Family">Family</option>
                         </select>
@@ -59,22 +60,27 @@ $conn->close();
                 </div>
 
                 <div class="row mb-3">
-                    <label for="bed_capacity" class="col-sm-2 col-form-label">Bed Capacity</label>
+                    <label for="capacity" class="col-sm-2 col-form-label">Capacity</label>
                     <div class="col-sm-10">
-                        <input type="number" name="bed_capacity" class="form-control" required>
+                        <input type="number" name="capacity" class="form-control" required>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label">Status</label>
                     <div class="col-sm-10">
-                        <select name="status" class="form-select" required>
-                            <option selected disabled>Select room status</option>
-                            <option value="Reserved">Reserved</option>
-                            <option value="Available">Available</option>
+                        <select name="status" class="form-select">
+                            <option value="Available" selected>Available</option>
                             <option value="Occupied">Occupied</option>
-                            <option value="Not available">Not available</option>
+                            <option value="Maintenance">Maintenance</option>
                         </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="price" class="col-sm-2 col-form-label">Price (₱)</label>
+                    <div class="col-sm-10">
+                        <input type="number" name="price" class="form-control" step="0.01" required>
                     </div>
                 </div>
 
